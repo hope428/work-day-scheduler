@@ -19,26 +19,24 @@ $(function () {
   // TODO: Add code to display the current date in the header of the page.
 
   var save = $(".saveBtn");
-  var hours = [
-    "hour-9",
-    "hour-10",
-    "hour-11",
-    "hour-12",
-    "hour-13",
-    "hour-14",
-    "hour-15",
-    "hour-16",
-    "hour-17",
-  ];
 
+  //creates array of all hour-* ids 
+  var hours = [] 
+    $.each($('.time-block'), function(){
+      hours.push($(this).attr('id'))
+    })
+
+  //saves input task to local storage 
   function saveEvent(event) {
+    //targets the sibling of the selected button
     var selected = $(this).parent().attr("id");
+    //retrieves input
     var task = $(this).siblings("textarea").val().trim();
-
+    //saves it to localstorage using the selected id as the localstorage key
     localStorage.setItem(selected, JSON.stringify(task));
   }
 
-  //for each hour-*, retrieve local storage with hour-* key
+  // //for each hour-*, retrieve local storage with hour-* key
   function getEvents() {
     if (localStorage) {
       $.each(hours, function (index, hour) {
