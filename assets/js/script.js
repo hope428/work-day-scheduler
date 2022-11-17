@@ -8,8 +8,13 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 
+  var date = dayjs()
+  var displayDate = date.format('dddd, MMMM D[th]')
+  var currentTime = parseInt(date.format('HH'))
+  var dayDisplayEl = $('#currentDay')
   var save = $(".saveBtn");
-  var currentTime = 15;
+
+  dayDisplayEl.text(displayDate)
   //creates array of all hour-* ids
   var hours = [];
   $.each($(".time-block"), function () {
@@ -21,12 +26,11 @@ $(function () {
     //for each time-block, taking the number off the id attached
     $.each($(".time-block"), function(index, hour){
       var hourNumber = $(hour).attr('id')
-      hourNumber = hourNumber.slice(5)
-      
+      hourNumber = parseInt(hourNumber.slice(5))
       //comparing the timeblock hour to the current hour to assign class
       if(hourNumber < currentTime){
         $(hour).addClass('past')
-      } else if (hourNumber == currentTime){
+      } else if (hourNumber === currentTime){
         $(hour).addClass('present')
       } else {
         $(hour).addClass('future')
